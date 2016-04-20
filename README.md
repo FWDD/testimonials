@@ -1,42 +1,39 @@
-## Team Post Type
+# TestimonialsPost Type
 
-WordPress plugin to add Team portfolios as a Custom Post Type
+WordPress plugin to add testimonials as a Custom Post Type
 
-### Description
+# Description
 
 This plugin includes a couple common features that are used with custom post types:
 
 * Registers a Custom Post Type
 * Registers a custom taxonomy
-* Registers a few metaboxes (Title, Twitter, Facebook, LinkedIn)
-* Adds the featured image to the admin column display
+* Registers a few metaboxes (Client Name, Job Title, email, website name, website URL)
+* Adds the featured image to use if the client does not have a Gravatar
 * Adds the post count to the admin dashboard
-* Adds RivalMind Team widget
+* Adds RivalMind Testimonials widget
 
-### Usage
+# Usage
 
-To display the Team Profiles, add the following shortcode to your post or page content:
+To display the testimonials, add the following shortcode to your post or page content:
 ~~~
-[RivalMind_team][/RivalMind_team]
+[testimonials][/testimonials]
 ~~~
 
 If you're comfortable editing template files, add this line of code to your template file:
 ~~~PHP
-<?php the_team(); ?>
+<?php the_testimonials(); ?>
 ~~~
 
-Optionally, you can control the number of profiles to show, what category, or show specific team members.
+Optionally, you can control the number of testimonials to show, the order, or show specific testimonials.
 
 ~~~PHP
-<?php the_team( $posts_per_page, $cat, $team_id ); ?>
+<?php the_testimonials( $posts_per_page, $order_by, $testimonial_id ); ?>
 ~~~
 
-Where $posts_per_page is the number of profiles to show, $cat is the category id, and $team_id is an id or array of ids to show. 
+Where $posts_per_page is the number of testimonials to show, $order_by is the field to order by, and $testimonial_id is an id or array of ids to show. 
 
-### Requirements
+
+## Requirements
 
 * WordPress 3.8 or higher
-
-### Credits
-
-Based on the terrific boilerplate by [Devin Price](http://www.wptheming.com/).  The "Dashboard Glancer" class and much re-used code from the Portfolio Post Type plugin by [Gary Jones](http://gamajo.com/).
