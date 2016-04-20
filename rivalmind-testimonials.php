@@ -1,12 +1,7 @@
 <?php
 
 /**
- * The plugin bootstrap file
- *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
+ * RivalMind Testimonials
  *
  * @link              https://rivalmind.com
  * @since             1.0.0
@@ -14,7 +9,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       RivalMind Testimonials
- * Plugin URI:        http://rivalmind.com
+ * Plugin URI:        https://github.com/RivalMind/rivalmind-testimonials
  * Description:       Adds a custom post type for client Testimonials to your WordPress website.
  * Version:           1.0.0
  * Author:            RivalMind
