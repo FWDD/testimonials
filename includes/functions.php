@@ -1,0 +1,186 @@
+<?php
+/**
+ * RivalMind Testimonials plugin functions file
+ * Provides the functions needed globally for the plugin
+ */
+
+/**
+ * Register the custom post type
+ */
+if ( ! function_exists( 'RivalMind_create_testimonials_post_type' ) ) {
+	function RivalMind_create_testimonials_post_type() {
+		$labels = array(
+			'name'               => _x( 'Testimonials', 'Post Type General Name', 'RivalMind' ),
+			'singular_name'      => _x( 'Testimonial', 'Post Type Singular Name', 'RivalMind' ),
+			'menu_name'          => __( 'Testimonials', 'RivalMind' ),
+			'name_admin_bar'     => __( 'Testimonials', 'RivalMind' ),
+			'parent_item_colon'  => __( 'Parent Item:', 'RivalMind' ),
+			'all_items'          => __( 'All Testimonials', 'RivalMind' ),
+			'add_new_item'       => __( 'Add New Testimonial', 'RivalMind' ),
+			'add_new'            => __( 'Add New', 'RivalMind' ),
+			'new_item'           => __( 'New Testimonial', 'RivalMind' ),
+			'edit_item'          => __( 'Edit Testimonial', 'RivalMind' ),
+			'update_item'        => __( 'Update Testimonial', 'RivalMind' ),
+			'view_item'          => __( 'View Testimonial', 'RivalMind' ),
+			'search_items'       => __( 'Search Testimonials', 'RivalMind' ),
+			'not_found'          => __( 'Not found', 'RivalMind' ),
+			'not_found_in_trash' => __( 'Not found in Trash', 'RivalMind' ),
+		);
+		$args   = array(
+			'label'               => __( 'testimonial', 'RivalMind' ),
+			'description'         => __( 'Client Testimonials', 'RivalMind' ),
+			'labels'              => $labels,
+			'supports'            => array( 'title', 'editor', 'thumbnail' ),
+			'hierarchical'        => false,
+			'public'              => true,
+			'show_ui'             => true,
+			'show_in_menu'        => true,
+			'menu_position'       => 5,
+			'menu_icon'           => 'dashicons-format-quote',
+			'show_in_admin_bar'   => true,
+			'show_in_nav_menus'   => true,
+			'can_export'          => true,
+			'has_archive'         => true,
+			'exclude_from_search' => true,
+			'publicly_queryable'  => true,
+			'capability_type'     => 'post'
+		);
+		register_post_type( 'testimonial', $args );
+	}
+}
+
+/**
+ * Get Testimonials
+ *
+ * @param  int $posts_per_page The number of testimonials you want to display
+ * @param  string $orderby The order by setting  https://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters
+ * @param  array $testimonial_id The ID or IDs of the testimonial(s), comma separated
+ *
+ * @return  string  Formatted HTML
+ */
+if ( ! function_exists( 'get_testimonials' ) ) {
+	function get_testimonials( $posts_per_page = - 1, $orderby = 'none', $testimonial_id = null ) {
+		$args = array(
+			'posts_per_page' => (int) $posts_per_page,
+			'post_type'      => 'testimonial',
+			'orderby'        => $orderby,
+			'no_found_rows'  => true,
+			'post_status'    => 'publish',
+		);
+		if ( $testimonial_id ) {
+			$args['post__in'] = array( $testimonial_id );
+		}
+
+		$query = new WP_Query( $args );
+		$testimonials = '';
+		if ( $query->have_posts() ) {
+			//Start our testimonial slider
+			$testimonials .= '<div class="RivalMind-testimonials"><ul class="testimonials">';
+			while ( $query->have_posts() ) : $query->the_post();
+				$post_id          = get_the_ID();
+				$testimonial_data = get_post_meta( $post_id, '_testimonial', true );
+				$client_name      = ( empty( $testimonial_data['client_name'] ) ) ? '' : $testimonial_data['client_name'];
+				$client_title     = ( empty( $testimonial_data['client_title'] ) ) ? '' : $testimonial_data['client_title'];
+				$client_email     = ( empty( $testimonial_data['client_email'] ) ) ? '' : $testimonial_data['client_email'];
+				$source           = ( empty( $testimonial_data['source'] ) ) ? '' : ' - ' . $testimonial_data['source'];
+				$link             = ( empty( $testimonial_data['link'] ) ) ? '' : $testimonial_data['link'];
+				$cite             = ( $link ) ? '<a href="' . esc_url( $link ) . '" target="_blank">' . $client_name . $client_title . $source . '</a>' : $client_name . $client_title . $source;
+				$image ='';
+				if ( ! empty( $client_email ) && get_avatar( $client_email ) ) {
+					$image = get_avatar( $client_email );
+				} elseif ( has_post_thumbnail() ) {
+					$image = wp_get_attachment_image( get_post_thumbnail_id(), 'thumbnail' );
+				}
+
+				$testimonials .= '<li>';
+				$testimonials .= '<span class="testimonial-title">' . get_the_title() . '</span>';
+				$testimonials .= '<span class="testimonial-content">';
+				$testimonials .= '<span class="testimonial-text">' . get_the_content() . '<span></span></span>';
+				$testimonials .= '<span class="testimonial-client-name">' . $image . '<cite>' . $cite . '</cite></span>';
+				$testimonials .= '</span>';
+				$testimonials .= '</li>';
+
+			endwhile;
+			wp_reset_postdata();
+			$testimonials .= '</ul></div>';
+		}
+
+		return $testimonials;
+	}
+}
+
+
+/**
+ * Display Testimonials
+ *
+ * @param int $posts_per_page
+ * @param string $orderby
+ * @param null $testimonial_id
+ */
+if ( ! function_exists( 'the_testimonials' ) ) {
+	function the_testimonials( $posts_per_page = - 1, $orderby = 'none', $testimonial_id = null ) {
+		echo get_testimonials( $posts_per_page, $orderby, $testimonial_id );
+	}
+}
+
+
+/**
+ * Set initial options
+ */
+if ( ! function_exists( 'RivalMind_init_options' ) ) {
+	function RivalMind_init_options() {
+		update_option( 'RivalMind_testimonials_version', RMT_VERSION );
+		add_option( 'RivalMind_testimonials_post_per_page', 10 );
+	}
+}
+
+
+/**
+ * Check the version number to see if an update is required
+ */
+if ( ! function_exists( 'RivalMind_testimonials_update' ) ) {
+	function RivalMind_testimonials_update() {
+		if ( get_option( 'RivalMind_testimonials_version' ) >= RMT_VERSION ) {
+			return;
+		}
+	}
+}
+
+if ( ! function_exists( 'load_testimonial_scripts' ) ) {
+	function load_testimonial_scripts() {
+		wp_enqueue_style( 'rmt-styles', plugins_url( 'css/testimonials.css', dirname( __FILE__ ) ) );
+		wp_enqueue_script( 'flexslider', plugins_url( 'js/jquery.flexslider-min.js', dirname( __FILE__ ) ), array( 'jquery' ), '2.5.0' );
+		wp_enqueue_script( 'testimonials', plugins_url( 'js/testimonials.js', dirname( __FILE__ ) ), array( 'flexslider' ), '1.0', true );
+	}
+
+	add_action( 'wp_enqueue_scripts', 'load_testimonial_scripts' );
+}
+
+/**
+ * Add the At a Glance dashboard items
+ */
+add_action( 'dashboard_glance_items', 'prefix_add_dashboard_counts' );
+function prefix_add_dashboard_counts() {
+	$glancer = new Gamajo_Dashboard_Glancer;
+	$glancer->add( 'testimonial' ); // show only published "testimonial" entries
+}
+
+function fix_glance_rmt_icon() { ?>
+	<style>#dashboard_right_now .testimonial-count a:before { content: '\f122'; }</style>
+	<?php
+}
+add_action( 'admin_head', 'fix_glance_rmt_icon' );
+
+if ( ! function_exists( 'testimonials_shortcode' ) ):
+	function testimonials_shortcode( $atts ) {
+		$a = shortcode_atts( array(
+			'posts_per_page' => -1,
+			'orderby' => null,
+			'testimonial_id'  => null,
+		), $atts );
+
+		return get_testimonials($a['posts_per_page'], $a['orderby'], $a['testimonial_id']);
+	}
+endif;
+
+add_shortcode( 'testimonials', 'testimonials_shortcode' );
