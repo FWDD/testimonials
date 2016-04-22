@@ -11,7 +11,7 @@ This plugin includes a couple common features that are used with custom post typ
 * Registers a few metaboxes (Client Name, Job Title, email, website name, website URL)
 * Adds the featured image to use if the client does not have a Gravatar
 * Adds the post count to the admin dashboard
-* Adds RivalMind Testimonials widget
+* Adds fwdd Testimonials widget
 
 # Usage
 

@@ -1,34 +1,34 @@
 <?php
 /**
- * RivalMind Testimonials plugin functions file
+ * fwdd Testimonials plugin functions file
  * Provides the functions needed globally for the plugin
  */
 
 /**
  * Register the custom post type
  */
-if ( ! function_exists( 'RivalMind_create_testimonials_post_type' ) ) {
-	function RivalMind_create_testimonials_post_type() {
+if ( ! function_exists( 'fwdd_create_testimonials_post_type' ) ) {
+	function fwdd_create_testimonials_post_type() {
 		$labels = array(
-			'name'               => _x( 'Testimonials', 'Post Type General Name', 'RivalMind' ),
-			'singular_name'      => _x( 'Testimonial', 'Post Type Singular Name', 'RivalMind' ),
-			'menu_name'          => __( 'Testimonials', 'RivalMind' ),
-			'name_admin_bar'     => __( 'Testimonials', 'RivalMind' ),
-			'parent_item_colon'  => __( 'Parent Item:', 'RivalMind' ),
-			'all_items'          => __( 'All Testimonials', 'RivalMind' ),
-			'add_new_item'       => __( 'Add New Testimonial', 'RivalMind' ),
-			'add_new'            => __( 'Add New', 'RivalMind' ),
-			'new_item'           => __( 'New Testimonial', 'RivalMind' ),
-			'edit_item'          => __( 'Edit Testimonial', 'RivalMind' ),
-			'update_item'        => __( 'Update Testimonial', 'RivalMind' ),
-			'view_item'          => __( 'View Testimonial', 'RivalMind' ),
-			'search_items'       => __( 'Search Testimonials', 'RivalMind' ),
-			'not_found'          => __( 'Not found', 'RivalMind' ),
-			'not_found_in_trash' => __( 'Not found in Trash', 'RivalMind' ),
+			'name'               => _x( 'Testimonials', 'Post Type General Name', 'fwdd-testimonials' ),
+			'singular_name'      => _x( 'Testimonial', 'Post Type Singular Name', 'fwdd-testimonials' ),
+			'menu_name'          => __( 'Testimonials', 'fwdd-testimonials' ),
+			'name_admin_bar'     => __( 'Testimonials', 'fwdd-testimonials' ),
+			'parent_item_colon'  => __( 'Parent Item:', 'fwdd-testimonials' ),
+			'all_items'          => __( 'All Testimonials', 'fwdd-testimonials' ),
+			'add_new_item'       => __( 'Add New Testimonial', 'fwdd-testimonials' ),
+			'add_new'            => __( 'Add New', 'fwdd-testimonials' ),
+			'new_item'           => __( 'New Testimonial', 'fwdd-testimonials' ),
+			'edit_item'          => __( 'Edit Testimonial', 'fwdd-testimonials' ),
+			'update_item'        => __( 'Update Testimonial', 'fwdd-testimonials' ),
+			'view_item'          => __( 'View Testimonial', 'fwdd-testimonials' ),
+			'search_items'       => __( 'Search Testimonials', 'fwdd-testimonials' ),
+			'not_found'          => __( 'Not found', 'fwdd-testimonials' ),
+			'not_found_in_trash' => __( 'Not found in Trash', 'fwdd-testimonials' ),
 		);
 		$args   = array(
-			'label'               => __( 'testimonial', 'RivalMind' ),
-			'description'         => __( 'Client Testimonials', 'RivalMind' ),
+			'label'               => __( 'testimonial', 'fwdd-testimonials' ),
+			'description'         => __( 'Client Testimonials', 'fwdd-testimonials' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor', 'thumbnail' ),
 			'hierarchical'        => false,
@@ -75,7 +75,7 @@ if ( ! function_exists( 'get_testimonials' ) ) {
 		$testimonials = '';
 		if ( $query->have_posts() ) {
 			//Start our testimonial slider
-			$testimonials .= '<div class="RivalMind-testimonials"><ul class="testimonials">';
+			$testimonials .= '<div class="fwdd-testimonials"><ul class="testimonials">';
 			while ( $query->have_posts() ) : $query->the_post();
 				$post_id          = get_the_ID();
 				$testimonial_data = get_post_meta( $post_id, '_testimonial', true );
@@ -127,10 +127,10 @@ if ( ! function_exists( 'the_testimonials' ) ) {
 /**
  * Set initial options
  */
-if ( ! function_exists( 'RivalMind_init_options' ) ) {
-	function RivalMind_init_options() {
-		update_option( 'RivalMind_testimonials_version', RMT_VERSION );
-		add_option( 'RivalMind_testimonials_post_per_page', 10 );
+if ( ! function_exists( 'fwdd_init_options' ) ) {
+	function fwdd_init_options() {
+		update_option( 'fwdd_testimonials_version', FWDDT_VERSION );
+		add_option( 'fwdd_testimonials_post_per_page', 10 );
 	}
 }
 
@@ -138,9 +138,9 @@ if ( ! function_exists( 'RivalMind_init_options' ) ) {
 /**
  * Check the version number to see if an update is required
  */
-if ( ! function_exists( 'RivalMind_testimonials_update' ) ) {
-	function RivalMind_testimonials_update() {
-		if ( get_option( 'RivalMind_testimonials_version' ) >= RMT_VERSION ) {
+if ( ! function_exists( 'fwdd_testimonials_update' ) ) {
+	function fwdd_testimonials_update() {
+		if ( get_option( 'fwdd_testimonials_version' ) >= FWDDT_VERSION ) {
 			return;
 		}
 	}

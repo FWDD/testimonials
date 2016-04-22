@@ -42,22 +42,22 @@
 /* ====================================================================================================================
  * BASE STYLES
  * ====================================================================================================================*/
-.RivalMind-testimonials {
+.fwdd-testimonials {
     margin: 0;
     padding: 0;
 }
-.RivalMind-testimonials .testimonials > li {
+.fwdd-testimonials .testimonials > li {
     display: none;
     -webkit-backface-visibility: hidden;
 }
-.RivalMind-testimonials .testimonials img {
+.fwdd-testimonials .testimonials img {
     height: auto;
     margin-right: 20px;
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;
 }
-.RivalMind-testimonials .testimonials:after {
+.fwdd-testimonials .testimonials:after {
     content: "\0020";
     display: block;
     clear: both;
@@ -65,22 +65,22 @@
     line-height: 0;
     height: 0;
 }
-.RivalMind-testimonials cite{
+.fwdd-testimonials cite{
     display: inline-block;
 }
-html[xmlns] .RivalMind-testimonials .testimonials {
+html[xmlns] .fwdd-testimonials .testimonials {
     display: block;
 }
-* html .RivalMind-testimonials .testimonials {
+* html .fwdd-testimonials .testimonials {
     height: 1%;
 }
-.no-js .RivalMind-testimonials .testimonials > li:first-child {
+.no-js .fwdd-testimonials .testimonials > li:first-child {
     display: block;
 }
 /* ====================================================================================================================
  * DEFAULT THEME
  * ====================================================================================================================*/
-.RivalMind-testimonials {
+.fwdd-testimonials {
     margin: 20px 0;
     background: #ffffff;
     /*border: 4px solid #ffffff;*/
@@ -94,15 +94,15 @@ html[xmlns] .RivalMind-testimonials .testimonials {
     /*-o-box-shadow: 0 0 1px 4px rgba(0, 0, 0, 0.2);*/
     /*box-shadow: 0 0 1px 4px rgba(0, 0, 0, 0.2);*/
 }
-.RivalMind-testimonials .testimonials {
+.fwdd-testimonials .testimonials {
     zoom: 1;
     text-align: center;
 }
-.RivalMind-testimonials li .quote{
+.fwdd-testimonials li .quote{
     font-size: 150%;
 }
 
-.RivalMind-testimonials .testimonial-text{
+.fwdd-testimonials .testimonial-text{
     font-size: 1rem;
     display:block;
 }
@@ -161,18 +161,18 @@ html[xmlns] .RivalMind-testimonials .testimonials {
     right: -50px;
     text-align: right;
 }
-.RivalMind-testimonials:hover .flex-direction-nav .flex-prev {
+.fwdd-testimonials:hover .flex-direction-nav .flex-prev {
     opacity: 0.7;
     left: 10px;
 }
-.RivalMind-testimonials:hover .flex-direction-nav .flex-prev:hover {
+.fwdd-testimonials:hover .flex-direction-nav .flex-prev:hover {
     opacity: 1;
 }
-.RivalMind-testimonials:hover .flex-direction-nav .flex-next {
+.fwdd-testimonials:hover .flex-direction-nav .flex-next {
     opacity: 0.7;
     right: 10px;
 }
-.RivalMind-testimonials:hover .flex-direction-nav .flex-next:hover {
+.fwdd-testimonials:hover .flex-direction-nav .flex-next:hover {
     opacity: 1;
 }
 .flex-direction-nav .flex-disabled {
