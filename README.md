@@ -37,3 +37,7 @@ Where $posts_per_page is the number of testimonials to show, $order_by is the fi
 ## Requirements
 
 * WordPress 3.8 or higher
+
+## License
+
+[GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.txt)
