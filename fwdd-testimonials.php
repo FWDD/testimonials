@@ -56,6 +56,7 @@ function activate_fwdd_testimonials() {
 	//Flush the rewrite rules
 	flush_rewrite_rules();
 }
+register_activation_hook( __FILE__, 'activate_fwdd_testimonials' );
 
 /**
  * This function runs during plugin deactivation.
@@ -63,8 +64,6 @@ function activate_fwdd_testimonials() {
 function deactivate_fwdd_testimonials() {
 
 }
-
-register_activation_hook( __FILE__, 'activate_fwdd_testimonials' );
 register_deactivation_hook( __FILE__, 'deactivate_fwdd_testimonials' );
 
 

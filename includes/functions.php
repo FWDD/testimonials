@@ -80,8 +80,8 @@ if ( ! function_exists( 'get_testimonials' ) ) {
 				$post_id          = get_the_ID();
 				$testimonial_data = get_post_meta( $post_id, '_testimonial', true );
 				$client_name      = ( empty( $testimonial_data['client_name'] ) ) ? '' : $testimonial_data['client_name'];
-				$client_title     = ( empty( $testimonial_data['client_title'] ) ) ? '' : $testimonial_data['client_title'];
-				$client_email     = ( empty( $testimonial_data['client_email'] ) ) ? '' : $testimonial_data['client_email'];
+				$client_title     = ( empty( $testimonial_data['client_title'] ) ) ? '' : ', ' . $testimonial_data['client_title'];
+				$client_email     = ( empty( $testimonial_data['client_email'] ) ) ? '' : ' ' . $testimonial_data['client_email'];
 				$source           = ( empty( $testimonial_data['source'] ) ) ? '' : ' - ' . $testimonial_data['source'];
 				$link             = ( empty( $testimonial_data['link'] ) ) ? '' : $testimonial_data['link'];
 				$cite             = ( $link ) ? '<a href="' . esc_url( $link ) . '" target="_blank">' . $client_name . $client_title . $source . '</a>' : $client_name . $client_title . $source;
