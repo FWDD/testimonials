@@ -49,6 +49,7 @@ class FWDD_Testimonial_Widget extends WP_Widget {
 
 		<p><label for="<?php echo $this->get_field_id( 'posts_per_page' ); ?>"><?php _e('Number of Testimonials:', 'fwdd-testimonials');?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'posts_per_page' ); ?>" name="<?php echo $this->get_field_name( 'posts_per_page' ); ?>" type="text" value="<?php echo esc_attr( $posts_per_page ); ?>" />
+			<i><?php _e('Enter -1 to show all testimonials', 'fwdd-testimonials');?></i>
 		</p>
 
 		<p><label for="<?php echo $this->get_field_id( 'orderby' ); ?>"><?php _e('Order By', 'fwdd-testimonials');?></label>
