@@ -93,6 +93,14 @@ html[xmlns] .fwdd-testimonials .testimonials {
 .fwdd-testimonials .testimonial-title{
     font-size: 150%;
 }
+.fwdd-testimonials .testimonial-title:before{
+    display: inline-block;
+    content: "\201C";
+}
+.fwdd-testimonials .testimonial-title:after{
+    display: inline-block;
+    content: "\201D";
+}
 .fwdd-testimonials li .quote{
     font-size: 150%;
 }
@@ -102,6 +110,9 @@ html[xmlns] .fwdd-testimonials .testimonials {
     display:block;
     margin-bottom: 10px;
     font-style: italic;
+}
+.fwdd-testimonials .testimonial-client-name{
+    text-align: left;
 }
 .flex-viewport {
     max-height: 2000px;
@@ -277,5 +288,8 @@ html[xmlns] .fwdd-testimonials .testimonials {
     .flex-direction-nav .flex-next {
         opacity: 1;
         right: 10px;
+    }
+    .fwdd-testimonials .testimonials img{
+        width: 90px;
     }
 }
