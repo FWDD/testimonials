@@ -3,6 +3,7 @@
  * Testimonials Widget
  */
 class FWDD_Testimonial_Widget extends WP_Widget {
+	// TODO add option to show title or not
 	
 	public function __construct() {
 

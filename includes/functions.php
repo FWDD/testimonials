@@ -60,6 +60,8 @@ if ( ! function_exists( 'fwdd_create_testimonials_post_type' ) ) {
  */
 if ( ! function_exists( 'get_testimonials' ) ) {
 	function get_testimonials( $posts_per_page = - 1, $orderby = 'none', $testimonial_id = null ) {
+		wp_enqueue_style('fwddt-styles');
+		wp_enqueue_script('testimonials');
 		$args = array(
 			'posts_per_page' => (int) $posts_per_page,
 			'post_type'      => 'testimonial',
@@ -79,10 +81,10 @@ if ( ! function_exists( 'get_testimonials' ) ) {
 			while ( $query->have_posts() ) : $query->the_post();
 				$post_id          = get_the_ID();
 				$testimonial_data = get_post_meta( $post_id, '_testimonial', true );
-				$client_name      = ( empty( $testimonial_data['client_name'] ) ) ? '' : $testimonial_data['client_name'];
-				$client_title     = ( empty( $testimonial_data['client_title'] ) ) ? '' : ', ' . $testimonial_data['client_title'];
-				$client_email     = ( empty( $testimonial_data['client_email'] ) ) ? '' : ' ' . $testimonial_data['client_email'];
-				$source           = ( empty( $testimonial_data['source'] ) ) ? '' : ' - ' . $testimonial_data['source'];
+				$client_name      = ( empty( $testimonial_data['client_name'] ) ) ? '' : esc_html($testimonial_data['client_name']);
+				$client_title     = ( empty( $testimonial_data['client_title'] ) ) ? '' : '<br> ' . esc_html($testimonial_data['client_title']);
+				$client_email     = ( empty( $testimonial_data['client_email'] ) ) ? '' : esc_html($testimonial_data['client_email']);
+				$source           = ( empty( $testimonial_data['source'] ) ) ? '' : ' - ' . esc_html($testimonial_data['source']);
 				$link             = ( empty( $testimonial_data['link'] ) ) ? '' : $testimonial_data['link'];
 				$cite             = ( $link ) ? '<a href="' . esc_url( $link ) . '" target="_blank">' . $client_name . $client_title . $source . '</a>' : $client_name . $client_title . $source;
 				$image ='';
@@ -91,7 +93,8 @@ if ( ! function_exists( 'get_testimonials' ) ) {
 				} elseif ( has_post_thumbnail() ) {
 					$image = wp_get_attachment_image( get_post_thumbnail_id(), 'thumbnail' );
 				}
-
+				//TODO optionally show title
+				//TODO use excerpt if there is one.
 				$testimonials .= '<li>';
 				$testimonials .= '<span class="testimonial-title">' . get_the_title() . '</span>';
 				$testimonials .= '<span class="testimonial-content">';
@@ -123,7 +126,6 @@ if ( ! function_exists( 'the_testimonials' ) ) {
 	}
 }
 
-
 /**
  * Set initial options
  */
@@ -133,7 +135,6 @@ if ( ! function_exists( 'fwdd_init_options' ) ) {
 		add_option( 'fwdd_testimonials_post_per_page', 10 );
 	}
 }
-
 
 /**
  * Check the version number to see if an update is required
@@ -148,9 +149,9 @@ if ( ! function_exists( 'fwdd_testimonials_update' ) ) {
 
 if ( ! function_exists( 'load_testimonial_scripts' ) ) {
 	function load_testimonial_scripts() {
-		wp_enqueue_style( 'rmt-styles', plugins_url( 'css/testimonials.css', dirname( __FILE__ ) ) );
-		wp_enqueue_script( 'flexslider', plugins_url( 'js/jquery.flexslider-min.js', dirname( __FILE__ ) ), array( 'jquery' ), '2.5.0' );
-		wp_enqueue_script( 'testimonials', plugins_url( 'js/testimonials.js', dirname( __FILE__ ) ), array( 'flexslider' ), '1.0', true );
+		wp_register_style( 'fwddt-styles', plugins_url( 'css/testimonials.css', dirname( __FILE__ ) ) );
+		wp_register_script( 'flexslider', plugins_url( 'js/jquery.flexslider-min.js', dirname( __FILE__ ) ), array( 'jquery' ), '2.5.0' );
+		wp_register_script( 'testimonials', plugins_url( 'js/testimonials.js', dirname( __FILE__ ) ), array( 'flexslider' ), '1.0', true );
 	}
 
 	add_action( 'wp_enqueue_scripts', 'load_testimonial_scripts' );
